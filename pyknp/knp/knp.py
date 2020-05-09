@@ -94,7 +94,7 @@ class KNP(object):
         if self.socket:
             knp_lines = self.socket.query(juman_str, pattern=r'^%s$'%(self.pattern))
         else:
-            knp_lines = self.subprocess.query(juman_str, pattern=r'^%s$'%(self.pattern))
+            knp_lines = self.subprocess.query(juman_str, pattern=r'^%s$'%(self.pattern), encoding="ms932")
         return BList(knp_lines, self.pattern, juman_format)
 
 

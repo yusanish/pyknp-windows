@@ -2,9 +2,9 @@ import sys
 import os
 import six
 import re
-import signal
 import socket
 import subprocess
+import threading
 
 class Socket(object):
 
@@ -63,21 +63,21 @@ class Subprocess(object):
             pass
 
 
-    def query(self, sentence, pattern):
+    def query(self, sentence, pattern, encoding='utf-8'):
         assert(isinstance(sentence, six.text_type))
-        def alarm_handler(signum, frame):
+        def alarm_handler():
             raise subprocess.TimeoutExpired(self.process_command, self.process_timeout)
-        signal.signal(signal.SIGALRM, alarm_handler)
-        signal.alarm(self.process_timeout)
+
+        timer = threading.Timer(self.process_timeout, alarm_handler)
         result = ""
         try:
-            self.process.stdin.write(sentence.encode('utf-8')+six.b('\n'))
+            self.process.stdin.write(sentence.encode(encoding)+six.b('\n'))
             self.process.stdin.flush()
             while True:
-                line = self.process.stdout.readline().rstrip().decode('utf-8')
+                line = self.process.stdout.readline().rstrip().decode(encoding)
                 if re.search(pattern, line):
                     break
                 result = "%s%s\n" % (result, line)
         finally:
-            signal.alarm(0)
+            timer.cancel()
         return result

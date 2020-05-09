@@ -13,7 +13,7 @@ with open(version_file) as fh:
     pyknp_version = fh.read().strip()
 __version__ = pyknp_version
 
-with open("README.md") as f:
+with open("README.md", encoding="utf-8") as f:
     long_description = f.read()
 
 setup(
