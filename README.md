@@ -41,9 +41,19 @@ cd pyknp
 cat installed_file.txt | xargs rm -rf
 ```
 
-## Documents
-https://pyknp.readthedocs.io/en/latest/
+## How to use
 
+You need to set command and option when Juman() and KNP constracted.
+
+```python
+#jumanpp
+jumanpp = Juman(command="jumanpp_v2.exe", option="--model=[path to jumandic.jppmdl]")
+
+#knp
+knp = KNP(command="knp.exe", jumancommand="jumanpp_v2.exe", jumanoption="--model=[path to jumandic.jppmdl]")
+```
+
+Official Document 👉 https://pyknp.readthedocs.io/en/latest/
 
 ## Authors/Contact
 

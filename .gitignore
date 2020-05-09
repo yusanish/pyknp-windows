@@ -4,3 +4,5 @@ build/
 dist/
 pyknp.egg-info/
 docs/_build/
+diff.txt
+installed_file.txt
